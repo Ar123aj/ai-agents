@@ -119,33 +119,22 @@ Output concise report (max 300 words)."""
 # AGENT 4: CHIEF/QA
 # ============================================
 def qa_agent(script, fact_check):
-    prompt = f"""You are Chief/QA Guardian for a YouTube channel.
+    prompt = f"""You are Chief/QA Guardian for YouTube.
 
-Check this content against safety rules:
+EXTRA RULES FOR HEALTH NICHE:
+- No medical advice — only general information
+- "Consult a doctor" disclaimer must be present
+- 3+ peer-reviewed sources (PubMed, NIH, WHO)
+- No "cure"/"guaranteed"/"miracle" claims
+- No specific diet/drug recommendations
+- No fear-mongering
+- AI disclosure set
 
-SCRIPT SUMMARY: {script[:500]}
-FACT CHECK: {fact_check}
-
-15-Point Checklist:
-[ ] Copyright-free
-[ ] No plagiarism
-[ ] Facts verified
-[ ] YouTube policy safe
-[ ] AI disclosure ready
-[ ] Original angle
-[ ] No misleading claims
-[ ] Human touch present
-[ ] Niche fit
-[ ] Brand voice
-[ ] Disclaimer present
-[ ] Sources cited
-[ ] No hacking content (if cybersecurity)
-[ ] No fear-mongering
-[ ] Affiliate disclosure (if AI tools)
-
-Output: PASS or FAIL with reasons (max 200 words)."""
+Check 15 safety rules: copyright, plagiarism, facts, policy, AI disclosure, original angle, no misleading, human touch, niche fit, brand voice, disclaimer, sources, no hacking, no fear-mongering, affiliate disclosure.
+Output: PASS or FAIL with reasons (max 150 words).
+SCRIPT: {script[:500]}
+FACT CHECK: {fact_check}"""
     return ask_groq(prompt, max_tokens=400)
-
 # ============================================
 # AGENT 5: SEO
 # ============================================
@@ -174,13 +163,16 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     msg = """🤖 *AI Agents Ready!*
 
-Kaunsa niche choose karna hai?
+Niche choose karo:
 
-1️⃣ Applied AI Tools & B2B SaaS
-2️⃣ Productivity & Career Systems
-3️⃣ Cybersecurity & Privacy Explainers
+1️⃣ AI Tools (SmartStackAI)
+2️⃣ Productivity (WorkSmartHQ)
+3️⃣ Health & Weight (HealthySugarWeightHub)
+4️⃣ Cybersecurity
+5️⃣ History & Science
+6️⃣ Space & Physics
 
-Reply with *1*, *2*, or *3*"""
+Reply *1-6*"""
     
     await update.message.reply_text(msg, parse_mode="Markdown")
 
@@ -218,7 +210,7 @@ Reply with *1*, *2*, *3*, *4*, or *5* to choose."""
     
     # STEP 2: Topic choose
     elif step == "choose_topic":
-        if text not in ["1", "2", "3", "4", "5"]:
+        if text not in ["1", "2", "3", "4", "5", "6"]:
             await update.message.reply_text("❌ 1-5 mein se choose karo.")
             return
         
