@@ -22,9 +22,12 @@ user_state = {}
 
 # Niches
 NICHES = {
-    "1": "Applied AI Tools & B2B SaaS",
-    "2": "Productivity & Career Systems",
-    "3": "Cybersecurity & Privacy Explainers"
+    "1": "Applied AI Tools & B2B SaaS (SmartStackAI)",
+    "2": "Productivity & Career Systems (WorkSmartHQ)",
+    "3": "Health & Weight Management (HealthySugarWeightHub)",
+    "4": "Cybersecurity & Privacy Explainers",
+    "5": "History & Science Explainers",
+    "6": "Space & Physics Lore"
 }
 
 # ============================================
